@@ -9,7 +9,6 @@
 // newParagraph.textContent = '===== A new paragraph from js file =====';
 // document.querySelector('body').appendChild(newParagraph);
 
-// Data Model ============================================================================
 const todos = [
   {
     text: 'Order cat food',
@@ -33,24 +32,21 @@ const todos = [
   },
 ]
 
-// General variables ===============================================================
+// General variables
+const body = document.querySelector('body');
 const searchBox = document.querySelector('#searchBox');
 const leftTodos = document.querySelector('#leftTodos');
 const todosList = document.querySelector('#todosList');
 const inputBox = document.querySelector('#inputBox');
 const addTodoBtn = document.querySelector('#addTodoBtn');
-const filters = {
-  searchBoxValue: '',
-};
 let inputBoxValue;
+let searchBoxValue;
 let summary = document.createElement('h3');
 let itemIndex;
-let incompleteTodos;
+let incompleteTodos = filterIncompleteTodos(todos); //todos.filter(todo => !todo.completed);
 
-// Functions ===============================================================
 // Initial display function
-function init(todos) { 
-  incompleteTodos = todos.filter(todo => !todo.completed)
+function init() {
   summary.textContent = `[ Your have ${incompleteTodos.length} todos left ]`;
   leftTodos.appendChild(summary);
   todoList(todos);
@@ -64,9 +60,13 @@ function todoList(todos) {
     todosList.appendChild(todoElement);
   });
 }
-// Remove main contents
+// Filter incomplete todos
+function filterIncompleteTodos(todos) {
+  return todos.filter(todo => !todo.completed);
+}
+// Remove all todo list
 function removeContents() { 
-  document.querySelector('h3').remove(); // document.querySelector('h3').innerHTML = '';
+  document.querySelector('h3').remove();
   todosList.innerHTML = '';
 }
 // Add new todo
@@ -79,22 +79,21 @@ function addNewTodo() {
   let newTodo = document.createElement('p');
   newTodo.textContent = `${itemIndex}. ${todos[itemIndex-1].text} (${todos[itemIndex-1].completed ? 'v' : ' '})`;
   todosList.appendChild(newTodo); 
-  incompleteTodos = todos.filter(todo => !todo.completed); 
+  incompleteTodos = filterIncompleteTodos(todos); //todos.filter(todo => !todo.completed); 
   summary.textContent = `[ Your have ${incompleteTodos.length} todos left ]`; 
   inputBox.value = '';
   document.querySelector('#searchBox').value = '';
 }
 
-// Render ===============================================================
 // Initializing first display
-init(todos);
+init();
 
 // Handle inputBox change
 inputBox.addEventListener('keyup', (e) => { 
   inputBoxValue = e.target.value;
   if(e.which === 13) {
     removeContents();
-    init(todos);
+    init();
     addNewTodo();
   };
 });
@@ -103,7 +102,7 @@ inputBox.addEventListener('keyup', (e) => {
 addTodoBtn.addEventListener('click', () => { 
   if(inputBoxValue) {
     removeContents();
-    init(todos);
+    init();
     addNewTodo();
   }
 });
@@ -111,10 +110,13 @@ addTodoBtn.addEventListener('click', () => {
 // Handle searchBox change
 searchBox.addEventListener('keyup', (e) => { 
   removeContents();
-  filters.searchBoxValue = e.target.value.toLowerCase();
+  searchBoxValue = e.target.value.toLowerCase();
   let filterTodos = todos.filter(todo => {
-    return todo.text.toLowerCase().includes(filters.searchBoxValue);
+    return todo.text.toLowerCase().includes(searchBoxValue);
   })
-  incompleteTodos = filterTodos.filter(todo => !todo.completed);
-  init(filterTodos);
+  let filterIncompleteTodos = this.filterIncompleteTodos(filterTodos); //filterTodos.filter(todo => !todo.completed);
+  let summary = document.createElement('h3');
+  summary.textContent = `[ Your have ${filterIncompleteTodos.length} todos left ]`;
+  leftTodos.appendChild(summary);
+  todoList(filterTodos);
 });
