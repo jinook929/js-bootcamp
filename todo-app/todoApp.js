@@ -38,7 +38,9 @@ const searchBox = document.querySelector('#searchBox');
 const leftTodos = document.querySelector('#leftTodos');
 const todosList = document.querySelector('#todosList');
 const inputBox = document.querySelector('#inputBox');
-const addTodoBtn = document.querySelector('#addTodoBtn');
+const newTodoForm = document.querySelector('#newTodoForm');
+// const mainDisplay = document.querySelector('#mainDisplay');
+// const addTodoBtn = document.querySelector('#addTodoBtn');
 const filters = {
   searchBoxValue: '',
 };
@@ -49,9 +51,9 @@ let incompleteTodos;
 
 // Functions ===============================================================
 // Initial display function
-function init(todos) { 
+function init(todos) {
   incompleteTodos = todos.filter(todo => !todo.completed)
-  summary.textContent = `[ Your have ${incompleteTodos.length} todos left ]`;
+  summary.textContent = `[ Your have ${incompleteTodos.length} todos left to complete ]`;
   leftTodos.appendChild(summary);
   todoList(todos);
 }
@@ -65,8 +67,8 @@ function todoList(todos) {
   });
 }
 // Remove main contents
-function removeContents() { 
-  document.querySelector('h3').remove(); // document.querySelector('h3').innerHTML = '';
+function removeContents() {
+  document.querySelector('h3').remove();
   todosList.innerHTML = '';
 }
 // Add new todo
@@ -80,7 +82,7 @@ function addNewTodo() {
   newTodo.textContent = `${itemIndex}. ${todos[itemIndex-1].text} (${todos[itemIndex-1].completed ? 'v' : ' '})`;
   todosList.appendChild(newTodo); 
   incompleteTodos = todos.filter(todo => !todo.completed); 
-  summary.textContent = `[ Your have ${incompleteTodos.length} todos left ]`; 
+  summary.textContent = `[ Your have ${incompleteTodos.length} todos left to complete ]`; 
   inputBox.value = '';
   document.querySelector('#searchBox').value = '';
 }
@@ -89,32 +91,44 @@ function addNewTodo() {
 // Initializing first display
 init(todos);
 
-// Handle inputBox change
-inputBox.addEventListener('keyup', (e) => { 
-  inputBoxValue = e.target.value;
-  if(e.which === 13) {
-    removeContents();
-    init(todos);
-    addNewTodo();
-  };
+// Handle searchBox change
+searchBox.addEventListener('keyup', (e) => {
+  filters.searchBoxValue = e.target.value.toLowerCase();
+  let filterTodos = todos.filter(todo => {
+    return todo.text.toLowerCase().includes(filters.searchBoxValue);
+  })
+  incompleteTodos = filterTodos.filter(todo => !todo.completed); 
+  removeContents();
+  init(filterTodos);
 });
 
-// Handle addTodoButton click
-addTodoBtn.addEventListener('click', () => { 
+// Handle submit
+newTodoForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  inputBoxValue = inputBox.value;
+  // inputBoxValue = e.target.elements.newTodo.value;
   if(inputBoxValue) {
     removeContents();
     init(todos);
     addNewTodo();
   }
-});
+})
 
-// Handle searchBox change
-searchBox.addEventListener('keyup', (e) => { 
-  removeContents();
-  filters.searchBoxValue = e.target.value.toLowerCase();
-  let filterTodos = todos.filter(todo => {
-    return todo.text.toLowerCase().includes(filters.searchBoxValue);
-  })
-  incompleteTodos = filterTodos.filter(todo => !todo.completed);
-  init(filterTodos);
-});
+// // Handle inputBox change
+// inputBox.addEventListener('keyup', (e) => { 
+//   inputBoxValue = e.target.value;
+//   if(e.which === 13) {
+//     removeContents();
+//     init(todos);
+//     addNewTodo();
+//   };
+// });
+
+// // Handle addTodoButton click
+// addTodoBtn.addEventListener('click', () => { 
+//   if(inputBoxValue) {
+//     removeContents();
+//     init(todos);
+//     addNewTodo();
+//   }
+// });

@@ -8,19 +8,23 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Todos</h1>
-  <!-- <p>ToDo 1: Clean the kitchen</p>
-  <p>ToDo 2: Book flights</p>
-  <p>ToDo 3: Research museums</p>
-  <p>ToDo 4: Walk the dog</p>
-  <p>ToDo 5: Finish this course!</p> -->
-  <div>
+
+  <h1>Todos List</h1>
+
+  <div id="searchInput">
     <input id="searchBox" type="text" placeholder="Filter todos...">
   </div>
-  <div id="todosList"></div>
-  <div id="leftTodos"></div>
-  <input id="inputBox" type="text" placeholder="Enter something to do...">
-  <button id="addTodoBtn">Add Todo</button>
+
+  <div id="mainDisplay">
+    <div id="todosList"></div>
+    <div id="leftTodos"></div>
+  </div>
+  
+  <form id="newTodoForm">
+    <input id="inputBox" type="text" name="newTodo" placeholder="Enter something to do...">
+    <button id="addTodoBtn">SUBMIT</button>
+  </form>
+  
 
   <script src="todoApp.js"></script>
 </body>
