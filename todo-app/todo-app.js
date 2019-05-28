@@ -1,19 +1,7 @@
-const todoItems = [{
-  text: 'Order cat food',
-  completed: false
-}, {
-  text: 'Clean kitchen',
-  completed: true
-}, {
-  text: 'Buy food',
-  completed: true
-}, {
-  text: 'Do work',
-  completed: false
-}, {
-  text: 'Exercise',
-  completed: true
-}]
+let todoItems = [];
+if(localStorage.getItem('todoItems') !== null) {
+  todoItems = JSON.parse(localStorage.getItem('todoItems'));
+}
 
 const todoDisplay = document.querySelector('#todos');
 const filters = {
@@ -64,6 +52,60 @@ document.querySelector('#new-todo').addEventListener('submit', (e) => {
     text: e.target.elements.text.value,
     completed: false
   })
+  localStorage.setItem('todoItems', JSON.stringify(todoItems));
   renderTodos(todoItems, filters);
   e.target.elements.text.value = '';
 })
+
+// *************************************
+
+// todoItems.push({
+//   text: 'Order cat food',
+//   completed: false
+// })
+// localStorage.setItem('todoItems', JSON.stringify(todoItems)); //console.log(localStorage.getItem('todoItems'))
+// todoItems = JSON.parse(localStorage.getItem('todoItems'))
+
+// todoItems.push({
+//   text: 'Clean kitchen',
+//   completed: true
+// })
+// localStorage.setItem('todoItems', JSON.stringify(todoItems));
+// todoItems = JSON.parse(localStorage.getItem('todoItems'))
+
+// todoItems.push({
+//   text: 'Buy food',
+//   completed: true
+// })
+// localStorage.setItem('todoItems', JSON.stringify(todoItems));
+// todoItems = JSON.parse(localStorage.getItem('todoItems'))
+
+// todoItems.push({
+//   text: 'Do work',
+//   completed: false
+// })
+// localStorage.setItem('todoItems', JSON.stringify(todoItems));
+// todoItems = JSON.parse(localStorage.getItem('todoItems'))
+
+// todoItems.push({
+//   text: 'Exercise',
+//   completed: true
+// })
+// localStorage.setItem('todoItems', JSON.stringify(todoItems));
+// todoItems = JSON.parse(localStorage.getItem('todoItems'))
+
+// localStorage.clear();
+
+// // localStorage
+// console.log('Create & Read',localStorage.getItem('location'));
+// localStorage.setItem('location', 'Flushing, NY');
+// console.log('Update & Read',localStorage.getItem('location'));
+// localStorage.removeItem('location');
+// console.log('Delete & Read',localStorage.getItem('location'));
+// localStorage.setItem('location', 'New York City');
+// localStorage.setItem('name', 'Jinook Jung');
+// console.log('Create & Read',localStorage.getItem('location'));
+// console.log('Create & Read',localStorage.getItem('name'));
+// localStorage.clear();
+// console.log('Delete all (location)',localStorage.getItem('location'));
+// console.log('Delete all (name)',localStorage.getItem('name'));
