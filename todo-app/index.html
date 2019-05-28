@@ -11,8 +11,13 @@
 
   <h1>Todos List</h1>
 
-  <div id="searchInput">
+  <div id="searchSetting">
     <input id="searchBox" type="text" placeholder="Filter todos...">
+    <p>
+      <label>
+        <input id="incompleteOnly" type="checkbox"> Show incomplete todos only
+      </label>
+    </p>
   </div>
 
   <div id="mainDisplay">
@@ -25,7 +30,23 @@
     <button id="addTodoBtn">SUBMIT</button>
   </form>
   
-
   <script src="todoApp.js"></script>
+
+<!-- ********************************************************* --><br><hr>
+
+  <h1>Todos</h1>
+  <input id="search-text" type="text" placeholder="Filter todos">
+  <label>
+      <input type="checkbox" id="hide-completed"> Hide completed
+  </label>
+  <div id="todos"></div>
+  <form id="new-todo">
+      <input type="text" placeholder="Something to do" name="text">
+      <button>Add Todo</button>
+  </form>
+  <script src="todo-app.js"></script>
+
+<!-- ********************************************************* --><br><hr>
+
 </body>
 </html>
