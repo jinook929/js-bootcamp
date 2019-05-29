@@ -50,6 +50,7 @@ document.querySelector('#hide-completed').addEventListener('change', (e) => {
 document.querySelector('#new-todo').addEventListener('submit', (e) => {
   e.preventDefault();
   todoItems.push({
+    id: uuidv4(),
     text: e.target.elements.text.value,
     completed: false
   })
