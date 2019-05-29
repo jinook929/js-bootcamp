@@ -29,7 +29,7 @@ const todosList = document.querySelector('#todosList');
 const leftTodos = document.querySelector('#leftTodos');
 const newTodoForm = document.querySelector('#newTodoForm');
 let searchBoxValue = '';
-let filteredTodos = [];
+let filterTodos = [];
 
 const init = () => {
   // Clear fields
@@ -37,20 +37,20 @@ const init = () => {
   leftTodos.innerHTML = '';
   // Filter todos
   if(!incompleteOnly.checked) {
-    filteredTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchBoxValue.toLowerCase()));
+    filterTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchBoxValue.toLowerCase()));
   } else {
-    filteredTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchBoxValue.toLowerCase()) && !todo.completed); 
+    filterTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchBoxValue.toLowerCase()) && !todo.completed); 
   }
   // Render filtered todos
   let indexId;
-  filteredTodos.forEach((todo, i) => {
+  filterTodos.forEach((todo, i) => {
     indexId = i + 1;
     let row = document.createElement('p');
     row.textContent = `${indexId}. ${todo.text} ${todo.completed ? '( v )' : '( . )'}`;
     todosList.appendChild(row)
   })
   // Render incomplete todos message
-  let incompletedTodos = filteredTodos.filter(todo => !todo.completed)
+  let incompletedTodos = filterTodos.filter(todo => !todo.completed)
   let summary = document.createElement('h3');
   summary.textContent = `- In this list, you have ${incompletedTodos.length} ${incompletedTodos.length > 1 ? 'todos' : 'todo'} left -`;
   leftTodos.appendChild(summary)

@@ -1,7 +1,7 @@
-let todoItems = [];
-if(localStorage.getItem('todoItems') !== null) {
-  todoItems = JSON.parse(localStorage.getItem('todoItems'));
-}
+const todoItems = getSavedTodos();
+// if(localStorage.getItem('todoItems') !== null) {
+//   todoItems = JSON.parse(localStorage.getItem('todoItems'));
+// }
 
 const todoDisplay = document.querySelector('#todos');
 const filters = {
@@ -9,30 +9,31 @@ const filters = {
   hideCompleted: false
 }
 
-const renderTodos = (todos, filters) => {
-  const filteredTodos = todos.filter(todo => {
-    const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText);
-    const hideCompletedMatch = !filters.hideCompleted || !todo.completed;
+// const renderTodos = (todos, filters) => {
+//   const filteredTodos = todos.filter(todo => {
+//     const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText);
+//     const hideCompletedMatch = !filters.hideCompleted || !todo.completed;
 
-    return searchTextMatch && hideCompletedMatch;
-  })
+//     return searchTextMatch && hideCompletedMatch;
+//   })
 
-  todoDisplay.innerHTML = '';
+//   todoDisplay.innerHTML = '';
 
-  let incompleteTodos = filteredTodos.filter(todo => {
-    return !todo.completed
-  });
+//   let incompleteTodos = filteredTodos.filter(todo => {
+//     return !todo.completed
+//   });
 
-  let summary = document.createElement('h2');
-  summary.textContent = `You have ${incompleteTodos.length} todos left`;
-  todoDisplay.appendChild(summary)
+//   let summary = document.createElement('h2');
+//   summary.textContent = `You have ${incompleteTodos.length} todos left`;
+//   todoDisplay.appendChild(summary)
 
-  filteredTodos.forEach(todo => {
-    let p = document.createElement('p');
-    p.textContent = todo.text;
-    todoDisplay.appendChild(p);
-  });
-}
+//   filteredTodos.forEach(todo => {
+//     generateTodoDOM(todo);
+//     // let p = document.createElement('p');
+//     // p.textContent = todo.text;
+//     // todoDisplay.appendChild(p);
+//   });
+// }
 
 renderTodos(todoItems, filters)
 
@@ -52,7 +53,8 @@ document.querySelector('#new-todo').addEventListener('submit', (e) => {
     text: e.target.elements.text.value,
     completed: false
   })
-  localStorage.setItem('todoItems', JSON.stringify(todoItems));
+  saveTodos(todoItems);
+  // localStorage.setItem('todoItems', JSON.stringify(todoItems));
   renderTodos(todoItems, filters);
   e.target.elements.text.value = '';
 })
