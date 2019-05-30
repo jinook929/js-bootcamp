@@ -66,7 +66,7 @@ const generateTodoDOM = (todo) => {
     span.setAttribute('style', '');
   }
 
-  checkbox.addEventListener('change', (e) => {
+  checkbox.addEventListener('change', () => {
     toggleTodo(todo.id);
     saveTodos(todoItems);
     renderTodos(todoItems, filters)
