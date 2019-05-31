@@ -22,6 +22,14 @@ const renderNotes = (notes, filters) => {
     return note.title.toLowerCase().includes(filters.searchValue.toLowerCase());
   });
 
+  if(filters.sorting === 'editedOrder') {
+    editedOrder(filteredNotes);
+  } else if(filters.sorting === 'createdOrder') {
+    createdOrder(filteredNotes);
+  } else if(filters.sorting === 'alphabeticalOrder') {
+    alphabeticalOrder(filteredNotes);
+  }
+
   notesDisplay.innerHTML = '';
 
   filteredNotes.forEach(filteredNote => {
@@ -51,4 +59,22 @@ const createNotesDOM = (filteredNote) => {
   return row;
   // notesDisplay.appendChild(row);
   // location.assign('./edit.html')
+}
+
+const editedOrder = (filteredNotes) => {
+  filteredNotes.sort((a, b) => {
+    return b.editedTimestamp - a.editedTimestamp
+  })
+}
+
+const createdOrder = (filteredNotes) => {
+  filteredNotes.sort((a, b) => {
+    return b.createdTimestamp - a.createdTimestamp
+  })
+}
+
+const alphabeticalOrder = (filteredNotes) => {
+  filteredNotes.sort((a, b) => {
+    return a.title.localeCompare(b.title);
+  })
 }

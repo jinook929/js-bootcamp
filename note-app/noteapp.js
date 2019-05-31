@@ -7,6 +7,7 @@ const searchText = document.querySelector('#searchText');
 
 const filters = {
   searchValue: '',
+  sorting: 'editedOrder',
 }
 
 renderNotes(notes, filters);
@@ -31,6 +32,8 @@ searchText.addEventListener('input', (e) => {
 
 sortOption.addEventListener('change', (e) => {
   console.log(`"${e.target.value}" selected`)
+  filters.sorting = e.target.value;
+  renderNotes(notes, filters);
 })
 
 window.addEventListener('storage', (e) => {

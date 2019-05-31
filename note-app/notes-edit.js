@@ -10,7 +10,7 @@ const noteIndex = notes.findIndex(note => {
 });
 let note = notes.find(note => {
   return noteId === note.id;
-}); console.log(note)
+});
 
 if(!note) {
   location.assign('./index.html');
@@ -33,6 +33,8 @@ editForm.addEventListener('submit', (e) => {
 
 noteTitle.addEventListener('input', (e) => {
   if(e.target.value) {
+    notes[noteIndex].edited = moment().format('ddd MMM D, YYYY, hh:mm:ss');
+    notes[noteIndex].editedTimestamp = moment().valueOf();
     notes[noteIndex].title = e.target.value;
     saveNotes(notes);
   } else {
@@ -42,6 +44,8 @@ noteTitle.addEventListener('input', (e) => {
 
 noteContent.addEventListener('input', (e) => {
   if(e.target.value) {
+    notes[noteIndex].edited = moment().format('ddd MMM D, YYYY, hh:mm:ss');
+    notes[noteIndex].editedTimestamp = moment().valueOf();
     notes[noteIndex].content = e.target.value;
     saveNotes(notes);
   } else {
@@ -70,3 +74,19 @@ removeNoteBtn.addEventListener('click', (e) => {
   saveNotes(notes);
   location.assign(`./index.html`);
 })
+
+// const bday = moment();
+// bday.year(1974).month(8).date(29)
+// console.log(bday.toString())
+// console.log(bday.format('MMM D, YYYY'))
+
+// const now = new Date();
+// const timestamp = now.getTime();
+
+// const myDate = new Date(timestamp);
+// const date1 = new Date('1974-09-29T11:45:30');
+// const date2 = new Date('1969-05-04T14:30:10');
+// const date1Timestamp = date1.getTime();
+// const date2Timestamp = date2.getTime();
+
+// date1Timestamp <= date2Timestamp ? console.log(`date1: ${date1.toString()} ==> date2: ${date2.toString()}`) : console.log(`date2: ${date2.toDateString()} ==> date1: ${date1.toDateString()}`)
