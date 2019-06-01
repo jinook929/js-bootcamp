@@ -1,3 +1,5 @@
+'use strict'
+
 // Set DOM elements
 const createForm = document.querySelector('#createForm');
 

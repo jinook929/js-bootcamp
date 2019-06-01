@@ -1,3 +1,5 @@
+'use strict'
+
 // Set DOM elements
 const noteTitle = document.querySelector('#noteTitle');
 const lastEdited = document.querySelector('#lastEdited');

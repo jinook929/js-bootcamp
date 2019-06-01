@@ -1,3 +1,5 @@
+'use strict'
+
 // Set DOM elements
 const notesDisplay = document.querySelector('#notesDisplay');
 const createBtn = document.querySelector('#createBtn');

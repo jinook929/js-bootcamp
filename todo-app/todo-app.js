@@ -1,3 +1,5 @@
+'use strict'
+
 const todoItems = getSavedTodos();
 // if(localStorage.getItem('todoItems') !== null) {
 //   todoItems = JSON.parse(localStorage.getItem('todoItems'));

@@ -1,7 +1,9 @@
+'use strict'
+
 const getSavedTodos = () => {
-  if(localStorage.getItem('todoItems') !== null) {
+  try {
     return JSON.parse(localStorage.getItem('todoItems'));
-  } else {
+  } catch(e) {
     return [];
   }
 }

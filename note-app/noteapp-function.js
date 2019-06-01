@@ -1,6 +1,14 @@
+'use strict'
+
 // Get data from localStorage
 const getSavedNotes = () => {
-  return localStorage.getItem('notes') ? JSON.parse(localStorage.getItem('notes')) : [];
+  const localStorageNotes = localStorage.getItem('notes');
+
+  try {
+    return localStorageNotes ? JSON.parse(localStorageNotes) : [];
+  } catch(e) {
+    return [];
+  }
 }
 
 // Save changed(created & edited) notes array to localStorage
