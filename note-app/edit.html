@@ -8,28 +8,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <h1>Edit Note</h1>
 
+  <a href="index.html"><button class="backToHome">Back to Note App</button></a><br><br>
+
   <form id="editForm">
-    <input id="noteTitle" name="title" type="text"><br>
+    <input id="noteTitle" name="title" type="text">
+    <span id="lastEdited"></span><br>
     <textarea id="noteContent" name="content"></textarea><br>
-    <button>Submit Change</button><button id="removeNoteBtn">Remove Note</button>
+    <!-- <button id="submitChangeBtn">Submit Change</button> -->
+    <button id="removeNoteBtn">Remove Note</button>
   </form>
-
-  
-  
-  <!-- <div id="491396ec-88be-4941-9afe-0267db852726">
-    <hr>
-    <h2>Current Feeling</h2>
-    <p>I feel fine, grateful and refreshed!</p>
-  </div>
-  <div id="6f778f85-5479-44b1-85c1-cd02deb31e06">
-    <hr>
-    <h2>Morning Resolution</h2>
-    <p>It's time to kick off! Let's try our best with confidence and humility in Him.</p>
-  </div> -->
-
-  <a href="index.html"><button>Back to Note App</button></a>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
   <script src="noteapp-function.js"></script>

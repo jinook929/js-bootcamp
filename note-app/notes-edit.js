@@ -1,58 +1,58 @@
+// Set DOM elements
 const noteTitle = document.querySelector('#noteTitle');
+const lastEdited = document.querySelector('#lastEdited');
 const noteContent = document.querySelector('#noteContent');
 const editForm = document.querySelector('#editForm');
 const removeNoteBtn = document.querySelector('#removeNoteBtn');
 
+// Display called note
+// // Get default date model from localStorage
 let notes = getSavedNotes();
+// // Find and get the right note
 const noteId = location.hash.substring(1);
-const noteIndex = notes.findIndex(note => {
-  return noteId === note.id
-});
 let note = notes.find(note => {
   return noteId === note.id;
 });
-
 if(!note) {
   location.assign('./index.html');
 }
-
+// // Render note title & content
 noteTitle.value = note.title;
+lastEdited.textContent = `Last edited ${moment(note.editedTimestamp).fromNow()}`;
 noteContent.value = note.content; 
 
-editForm.addEventListener('submit', (e) => {
-  e.preventDefault();  
-  if(e.target.elements.title.value && e.target.elements.content.value) {
-    notes[noteIndex].title = e.target.elements.title.value;
-    notes[noteIndex].content = e.target.elements.content.value;
-    saveNotes(notes);
-    location.assign(`./index.html`);
-  } else {
-    alert('Fill the boxes.');
-  }
-})
-
+// Event Handlers
+// // Handle noteTitle change
 noteTitle.addEventListener('input', (e) => {
   if(e.target.value) {
-    notes[noteIndex].edited = moment().format('ddd MMM D, YYYY, hh:mm:ss');
-    notes[noteIndex].editedTimestamp = moment().valueOf();
-    notes[noteIndex].title = e.target.value;
+    // note.edited = moment().format('ddd MMM D, YYYY, hh:mm:ss a');
+    note.editedTimestamp = moment().valueOf();
+    lastEdited.textContent = `Last edited ${moment(note.editedTimestamp).fromNow()}`;
+    note.title = e.target.value;
     saveNotes(notes);
   } else {
     alert('Fill the title box.');
   }
 })
-
+// // Handle noteContent change
 noteContent.addEventListener('input', (e) => {
   if(e.target.value) {
-    notes[noteIndex].edited = moment().format('ddd MMM D, YYYY, hh:mm:ss');
-    notes[noteIndex].editedTimestamp = moment().valueOf();
-    notes[noteIndex].content = e.target.value;
+    // note.edited = moment().format('ddd MMM D, YYYY, hh:mm:ss a');
+    note.editedTimestamp = moment().valueOf();
+    lastEdited.textContent = `Last edited ${moment(note.editedTimestamp).fromNow()}`;
+    note.content = e.target.value;
     saveNotes(notes);
   } else {
-    alert('Fill the title box.');
+    alert('Fill the content box.');
   }
 })
-
+// // Handle removeNote button
+removeNoteBtn.addEventListener('click', (e) => {
+  removeNote(note);
+  saveNotes(notes);
+  location.assign(`./index.html`);
+})
+// Handle localStorage change
 window.addEventListener('storage', (e) => {
   if(e.key === 'notes') {
     notes = JSON.parse(e.newValue);
@@ -65,16 +65,27 @@ window.addEventListener('storage', (e) => {
     }
 
     noteTitle.value = note.title;
+    lastEdited.textContent = `Last edited ${moment(note.editedTimestamp).fromNow()}`;
     noteContent.value = note.content; 
   }
 })
 
-removeNoteBtn.addEventListener('click', (e) => {
-  removeNote(note);
-  saveNotes(notes);
-  location.assign(`./index.html`);
-})
+// // // Handle editForm('Submit Change' button)
+// editForm.addEventListener('submit', (e) => {
+//   e.preventDefault();  
+//   if(e.target.elements.title.value && e.target.elements.content.value) {
+//     note.editedTimestamp = moment().valueOf();
+//     note.title = e.target.elements.title.value;
+//     lastEdited.textContent = `Last edited ${moment(note.editedTimestamp).fromNow()}`;
+//     note.content = e.target.elements.content.value;
+//     saveNotes(notes);
+//     location.assign(`./index.html`);
+//   } else {
+//     alert('Fill the boxes.');
+//   }
+// })
 
+// Date & Time Exercise =======================================
 // const bday = moment();
 // bday.year(1974).month(8).date(29)
 // console.log(bday.toString())

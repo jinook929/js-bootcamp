@@ -1,3 +1,3 @@
-#createBtn {
+#createBtn, #submitChangeBtn, #removeNoteBtn, #submitCreateBtn, .deleteBtn, .backToHome {
   cursor: pointer;
 }
