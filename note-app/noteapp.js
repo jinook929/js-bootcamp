@@ -27,6 +27,22 @@ sortOption.addEventListener('change', (e) => {
   filters.sorting = e.target.value;
   renderNotes(notes, filters);
 })
+// // Handle createBtn ==> in production, createBtn is set as link to create.html
+createBtn.addEventListener('click', () => {
+  let id = uuidv4();
+  let timestamp = moment().valueOf();
+  notes.push({
+    id: id,
+    title: '',
+    content: '',
+    // created: now.format('ddd MMM D, YYYY, hh:mm:ss a'),
+    createdTimestamp: timestamp,
+    // edited: now.format('ddd MMM D, YYYY, hh:mm:ss a'),
+    editedTimestamp: timestamp,
+  });
+  saveNotes(notes);
+  location.assign(`./edit.html#${id}`);
+})
 // // Handle localStorage change
 window.addEventListener('storage', (e) => {
   if(e.key === 'notes') {
@@ -34,17 +50,3 @@ window.addEventListener('storage', (e) => {
     renderNotes(notes, filters); 
   }
 })
-
-// // Handle createBtn ==> in production, createBtn is set as link to create.html
-// createBtn.addEventListener('click', () => {
-//   let id = uuidv4();
-
-//   notes.push({
-//     id: id,
-//     title: `Test Note (id: ${id.slice(0, 8)}...)`,
-//     content: `${id.toUpperCase()}`
-//   })
-//   saveNotes(notes);
-//   // renderNotes(notes, filters);
-//   location.assign(`./edit.html#${id}`);
-// })

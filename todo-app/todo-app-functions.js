@@ -28,9 +28,7 @@ const renderTodos = (todos, filters) => {
 }
 
 const removeTodo = (id) => {
-  let todoIndex = todoItems.findIndex((todo) => {
-    return todo.id === id;
-  })
+  let todoIndex = todoItems.findIndex((todo) => todo.id === id);
   // let todoIndexArr = todoItems.map(todo => todo.id)
   // let todoIndex = todoIndexArr.indexOf(id);
   if(todoIndex > -1) {
@@ -39,9 +37,7 @@ const removeTodo = (id) => {
 }
 
 const toggleTodo = (id) => {
-  let todo = todoItems.find((todo) => {
-    return todo.id === id;
-  })
+  let todo = todoItems.find((todo) => todo.id === id);
   if(todo !== undefined) {
     todo.completed = !todo.completed;
   }  
@@ -82,9 +78,7 @@ const generateTodoDOM = (todo) => {
 }
 
 const generateSummaryDOM  = (filteredTodos) => {
-  let incompleteTodos = filteredTodos.filter(todo => {
-    return !todo.completed
-  });
+  let incompleteTodos = filteredTodos.filter(todo => !todo.completed);
   let summary = document.createElement('h2');
   summary.textContent = `You have ${incompleteTodos.length} ${incompleteTodos.length > 1 ? 'todos' : 'todo'} left`;
   return summary;

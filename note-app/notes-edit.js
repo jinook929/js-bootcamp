@@ -10,9 +10,7 @@ const removeNoteBtn = document.querySelector('#removeNoteBtn');
 let notes = getSavedNotes();
 // // Find and get the right note
 const noteId = location.hash.substring(1);
-let note = notes.find(note => {
-  return noteId === note.id;
-});
+let note = notes.find(note => noteId === note.id);
 if(!note) {
   location.assign('./index.html');
 }
@@ -56,9 +54,7 @@ removeNoteBtn.addEventListener('click', (e) => {
 window.addEventListener('storage', (e) => {
   if(e.key === 'notes') {
     notes = JSON.parse(e.newValue);
-    note = notes.find(note => {
-      return noteId === note.id;
-    }); 
+    note = notes.find(note => noteId === note.id); 
 
     if(!note) {
       location.assign('./index.html');

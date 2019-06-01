@@ -4,22 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Edit Note</title>
+  <title>Your Note</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Edit Note</h1>
+  <h1>Your Note</h1>
+  <p>(Your note is automatically saved. When you finish, just go back to Main Page.)</p>
 
-  <a href="index.html"><button class="backToHome">Back to Note App</button></a><br><br>
-
+  <button id="removeNoteBtn">Remove Note</button>
+  
   <form id="editForm">
     <input id="noteTitle" name="title" type="text">
     <span id="lastEdited"></span><br>
     <textarea id="noteContent" name="content"></textarea><br>
     <!-- <button id="submitChangeBtn">Submit Change</button> -->
-    <button id="removeNoteBtn">Remove Note</button>
   </form>
+
+  <a href="index.html"><button class="backToHome">Back to Main Page</button></a><br><br>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
   <script src="noteapp-function.js"></script>

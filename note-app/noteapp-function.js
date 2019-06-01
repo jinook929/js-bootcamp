@@ -1,10 +1,6 @@
 // Get data from localStorage
 const getSavedNotes = () => {
-  if(localStorage.getItem('notes') !== null) {
-    return JSON.parse(localStorage.getItem('notes'));
-  } else {
-    return [];
-  }  
+  return localStorage.getItem('notes') ? JSON.parse(localStorage.getItem('notes')) : [];
 }
 
 // Save changed(created & edited) notes array to localStorage
@@ -14,18 +10,16 @@ const saveNotes = (notes) => {
 
 // Remove note from notes array
 const removeNote = (filteredNote) => {
-  let noteIndex = notes.findIndex(note => {
-    return filteredNote.id === note.id;
-  });
-  notes.splice(noteIndex, 1);
+  let noteIndex = notes.findIndex(note => filteredNote.id === note.id);
+  if(noteIndex > -1) {
+    notes.splice(noteIndex, 1);
+  }
 }
 
 // Render notes according to searching & sorting condition
 const renderNotes = (notes, filters) => {
   // Searching filter
-  let filteredNotes = notes.filter(note => {
-    return note.title.toLowerCase().includes(filters.searchValue.toLowerCase());
-  });
+  let filteredNotes = notes.filter(note => note.title.toLowerCase().includes(filters.searchValue.toLowerCase()));
 
   // Sorting by filter
   sortingFilter(filteredNotes);
@@ -50,9 +44,13 @@ const createNotesDOM = (filteredNote) => {
   // Fill DOM element
   delBtn.textContent = 'x';
   delBtn.setAttribute('class', 'deleteBtn');
-  noteText.textContent = filteredNote.title;
+  if(filteredNote.title) {
+    noteText.textContent = filteredNote.title;
+  } else {
+    noteText.textContent = `Empty Note Created @${moment(filteredNote.createdTimestamp).format('MM/DD/YY, hh:mm:ss A')}`;
+  }
   noteText.setAttribute('href', `./edit.html#${filteredNote.id}`)
-
+  
   // Add event listener to delBtn
   delBtn.addEventListener('click', () => {
     removeNote(filteredNote);
@@ -70,17 +68,11 @@ const createNotesDOM = (filteredNote) => {
 // Order by sorting filter
 const sortingFilter = (filteredNotes) => {
   if(filters.sorting === 'editedOrder') {
-    filteredNotes.sort((a, b) => {
-      return b.editedTimestamp - a.editedTimestamp
-    });
+    filteredNotes.sort((a, b) => b.editedTimestamp - a.editedTimestamp);
   } else if(filters.sorting === 'createdOrder') {
-    filteredNotes.sort((a, b) => {
-      return b.createdTimestamp - a.createdTimestamp
-    });
+    filteredNotes.sort((a, b) => b.createdTimestamp - a.createdTimestamp);
   } else if(filters.sorting === 'alphabeticalOrder') {
-    filteredNotes.sort((a, b) => {
-      return a.title.localeCompare(b.title);
-    });
+    filteredNotes.sort((a, b) => a.title.localeCompare(b.title));
   }
 }
 

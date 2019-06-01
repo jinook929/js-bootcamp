@@ -50,10 +50,10 @@ const init = () => {
     todosList.appendChild(row)
   })
   // Render incomplete todos message
-  let incompletedTodos = filterTodos.filter(todo => !todo.completed)
+  let incompletedTodos = filterTodos.filter(todo => !todo.completed);
   let summary = document.createElement('h3');
   summary.textContent = `- In this list, you have ${incompletedTodos.length} ${incompletedTodos.length > 1 ? 'todos' : 'todo'} left -`;
-  leftTodos.appendChild(summary)
+  leftTodos.appendChild(summary);
 }
 
 // Initialize display

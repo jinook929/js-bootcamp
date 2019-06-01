@@ -1,3 +1,7 @@
 #createBtn, #submitChangeBtn, #removeNoteBtn, #submitCreateBtn, .deleteBtn, .backToHome {
   cursor: pointer;
 }
+
+#removeNoteBtn:hover {
+  background: orangered;
+}
