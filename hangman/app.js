@@ -12,9 +12,11 @@ const product = {
 };
 
 Object.prototype.someNewMethod = () => 'This is a new function'
-console.log('name', product.hasOwnProperty('name'))
-console.log('price', product.hasOwnProperty('price'))
-console.log(product.someNewMethod())
+console.log('name@product', product.hasOwnProperty('name'))
+console.log('price@product', product.hasOwnProperty('price'))
+console.log('someNewMethod@product', product.hasOwnProperty('someNewMethod'))
+console.log('someNewMethod@product.__proto__', product.__proto__.hasOwnProperty('someNewMethod'))
+console.log('someNewMethod', product.someNewMethod())
 console.log(product)
 
 const product1 = new Object();
@@ -29,9 +31,9 @@ console.log(product2)
 
 const team = ['Tim', 'Maddy'];
 console.log(team)
-console.log(team.hasOwnProperty('length'))
-console.log(team.hasOwnProperty('filter'))
-console.log(team.__proto__.hasOwnProperty('filter'))
+console.log('length method@team',team.hasOwnProperty('length'))
+console.log('filter method@team',team.hasOwnProperty('filter'))
+console.log('filter method@prototype',team.__proto__.hasOwnProperty('filter'))
 console.log(team.someNewMethod())
 
 const team1 = new Array();
@@ -45,8 +47,17 @@ console.log(team2)
 const getScore = () => 1;
 console.log(getScore)
 
+const functionExample = function() {
+  return 3;
+}
+console.log(functionExample.__proto__.hasOwnProperty('toString'))
+console.log(functionExample.__proto__.__proto__.hasOwnProperty('hasOwnProperty'))
+
 const item = 'Computer'
 console.log(item)
 
 const otherItem = new String('Phone');
 console.log(otherItem)
+
+const num = new Number(123);
+console.log(num)

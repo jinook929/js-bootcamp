@@ -30,12 +30,22 @@ me.setName('Alex Turner')
 // }
 console.log(me)
 console.log(me.getBio())
+me.getBio = function() {
+  return 'getBio has been assigned to the internal property instead of using prototypal inheritance!!!'
+}
+console.log(me)
+console.log(me.getBio())
 
 const you = new Person('Sunmi', 'Chang', 50);
 // Person.prototype.getBio = function() {
 //   return 'Testing~';
 // }
+you.__proto__.greeting = function() { // This will affect the Person constructor function's prototype.
+  return 'Hello'
+}
 console.log(you)
+console.log(you.greeting())
+console.log(you.__proto__.__proto__.hasOwnProperty('hasOwnProperty'))
 console.log(you.getBio())
 
 
