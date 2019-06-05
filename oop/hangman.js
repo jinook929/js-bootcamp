@@ -1,8 +1,3 @@
-const Hangman = function(word, remainingGuesses) {
-  this.word = word.toLowerCase().split('');
-  this.remainingGuesses = remainingGuesses;
-  this.guessedLetters = [];
-}
 // class Hangman {
 //   constructor(word, allowedGuesses) {
 //     this.word = word.toLowerCase().split('');
@@ -10,12 +5,19 @@ const Hangman = function(word, remainingGuesses) {
 //     this.guessedLetters = [];
 //   }
 // }
+const Hangman = function(word, remainingGuesses) {
+  this.word = word.toLowerCase().split('');
+  this.remainingGuesses = remainingGuesses;
+  this.guessedLetters = [];
+}
 
 Hangman.prototype.getPuzzle = function(letter) {
-  this.guessedLetters.push(letter); console.log(this.guessedLetters)
-
+  if(letter) {
+    this.guessedLetters.push(letter); console.log('guessedLetter array', this.guessedLetters)
+  }
+  
   let puzzle = '';
-
+  console.log('getPuzzle this.word',this.word)
   this.word.forEach(letter => {
     if(this.guessedLetters.includes(letter) || letter === ' ') {
       puzzle += letter;
@@ -28,12 +30,14 @@ Hangman.prototype.getPuzzle = function(letter) {
 }
 
 const game1 = new Hangman('Cat', 2);
-console.log(game1.word)
-console.log(game1.getPuzzle('a'))
-console.log(game1.getPuzzle('b'))
-console.log(game1.getPuzzle('c'))
+console.log('Game1 Word', game1.word)
+console.log('Game2 - No guess yet:', game1.getPuzzle())
+console.log('a:', game1.getPuzzle('a'))
+console.log('b:', game1.getPuzzle('b'))
+console.log('c:', game1.getPuzzle('c'))
 
-const game2 = new Hangman('running zebra', 3);
+const game2 = new Hangman('Running zebra', 3);
+console.log('Game2 - No guess yet:', game2.getPuzzle())
 console.log(game2.getPuzzle('a'))
 console.log(game2.getPuzzle('e'))
 console.log(game2.getPuzzle('i'))
