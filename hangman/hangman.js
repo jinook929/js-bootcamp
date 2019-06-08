@@ -4,19 +4,9 @@ const Hangman = function(word, remainingGuesses) {
   this.guessedLetters = [];
 }
 
-Hangman.prototype.getPuzzle = function(guessLetter) {
+Hangman.prototype.getPuzzle = function() {
   let puzzle = '';
   
-  let isUnique = !this.guessedLetters.includes(guessLetter);
-  
-  if(guessLetter && isUnique) {
-    this.guessedLetters.push(guessLetter);
-  }  
-
-  if(guessLetter && isUnique && !this.word.includes(guessLetter.toLowerCase())) {
-    this.remainingGuesses--;
-  }
-
   this.word.forEach(letter => {
     if(this.guessedLetters.includes(letter) || letter === ' ') {
       puzzle += letter;
@@ -25,28 +15,35 @@ Hangman.prototype.getPuzzle = function(guessLetter) {
     }
   })
 
-  return `${puzzle} [remaining guess(es): ${this.remainingGuesses}]`;
+  return puzzle;
 }
 
-const game1 = new Hangman('Cat', 2); console.log('game1',game1)
-// console.log('Game1 - No guess yet:', game1.getPuzzle())
-// console.log('Game1 - "c" tried:', game1.getPuzzle('c'))
-// console.log('Game1 - "c" tried:', game1.getPuzzle('c'))
-// console.log('Game1 - "z" tried:', game1.getPuzzle('z'))
-// console.log('Game1 - "z" tried:', game1.getPuzzle('z'))
-// console.log('Game1 - "t" tried:', game1.getPuzzle('t'))
-// console.log('Game1 - "a" tried:', game1.getPuzzle('a'))
+Hangman.prototype.makeGuess = function(guess) {
+  guess = guess.toLowerCase();
+  let isUnique = !this.guessedLetters.includes(guess);
+  let isWrong = !this.word.includes(guess.toLowerCase());
 
-// const game2 = new Hangman('Running Zebra', 3);
-// console.log('Game2 - No guess yet:', game2.getPuzzle())
-// console.log('Game2 - "r" tried:', game2.getPuzzle('r'))
-// console.log('Game2 - "a" tried:', game2.getPuzzle('a'))
+  if(guess && isUnique && isWrong) {
+    this.remainingGuesses--;
+  }
+
+  if(guess && isUnique) {
+    this.guessedLetters.push(guess);
+  }
+}
+
+const game1 = new Hangman('Cat', 2); // console.log(game1.getPuzzle(), game1.remainingGuesses)
+
+const game2 = new Hangman('Running Zebra', 3); console.log(game2.getPuzzle(), game2.remainingGuesses)
 
 window.addEventListener('keypress', (e) => {
-  // let guess = String.fromCharCode(e.charCode);
+  // let guess = String.fromCharCode(e.charCode); --> Andrew's way
   let guess = e.key;
-  if(guess === 'Enter' || guess === ' ') {
+  if(guess === 'Enter' || guess === ' ' || game2.guessedLetters.includes(guess)) {
     return;
   }
-  console.log(`Game1 - "${guess}" tried:`, game1.getPuzzle(guess))
+  // game1.makeGuess(guess)
+  game2.makeGuess(guess)
+  // console.log(`Game1 - "${guess}" tried: ${game1.getPuzzle()} [${game1.remainingGuesses} chance(s) left]`)
+  console.log(`Game2 - "${guess}" tried: ${game2.getPuzzle()} [${game2.remainingGuesses} chance(s) left]`)
 })
