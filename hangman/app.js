@@ -1,4 +1,4 @@
-const game1 = new Hangman('Cat', 2);
+const game1 = new Hangman('Flying Elephant', 5);
 game1.init();
 // const game2 = new Hangman('Running Zebra', 3);
 // game2.init();
