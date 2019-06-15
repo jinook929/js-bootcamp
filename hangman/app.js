@@ -1,4 +1,4 @@
-const game = new Hangman('Hangman Game', 3);
+const game = new Hangman('newPuzzle', 3);
 game.init();
 
 window.addEventListener('keypress', (e) => {
@@ -9,12 +9,9 @@ window.addEventListener('keypress', (e) => {
   game.makeGuess(guess)
 });
 
-getPuzzle('2', (error, puzzle) => {
-  if(error) {
-    console.log(`Error: ${error}`)
-  } else {
-    // console.log(puzzle)
-    game.word = puzzle.toLowerCase().split('')
-    game.init();
-  }
+let newPuzzle = getPuzzle('2').then((puzzle) => {
+  console.log(puzzle)
+}, (err) => {
+  console.log(`Error: ${err}`)
 });
+console.log(newPuzzle)
