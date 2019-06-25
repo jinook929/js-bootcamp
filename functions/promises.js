@@ -6,12 +6,10 @@ const getDataCallback = (num, callback) => {
     } else {
       callback('Number must be provided');
     }
-    // callback(undefined, 'This is the data');
-    // callback('This is the callback error', undefined);
   }, 2000);
 };
 
-getDataCallback(2, (err, data) => {
+getDataCallback(2, (err, data) => {  
   if(err) {
     console.log(`Error: ${err}`);
   } else {
@@ -19,10 +17,9 @@ getDataCallback(2, (err, data) => {
       if(err) {
         console.log('Error: ', err);
       } else {
-        console.log(data);
+        console.log('for data: ',data);
       }
     });
-    // console.log(data);
   }
 });
 
